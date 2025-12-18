@@ -1,0 +1,71 @@
+{
+  "task_id": "manual-1765983611",
+  "status": "completed_with_errors",
+  "url": "https://timesofindia.indiatimes.com/india",
+  "task": "Extract top 10 headlines and give a two-sentence summary.",
+  "steps": [
+    "Fetch https://timesofindia.indiatimes.com/india",
+    "Extract headlines",
+    "Summarize headlines into two sentences",
+    "Return result"
+  ],
+  "outputs": [
+    {
+      "step_index": 1,
+      "step": "Fetch https://timesofindia.indiatimes.com/india",
+      "exec_step": "Fetch https://timesofindia.indiatimes.com/india",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765983613.4744804,
+      "end_ts": 1765983670.7229068
+    },
+    {
+      "step_index": 2,
+      "step": "Extract headlines",
+      "exec_step": "Extract headlines",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765983670.7291698,
+      "end_ts": 1765983670.776159
+    },
+    {
+      "step_index": 3,
+      "step": "Summarize headlines into two sentences",
+      "exec_step": "Summarize headlines into two sentences",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765983670.776159,
+      "end_ts": 1765983670.776159
+    },
+    {
+      "step_index": 4,
+      "step": "Return result",
+      "exec_step": "Return result",
+      "result": "Executed: Return result",
+      "valid": true,
+      "start_ts": 1765983670.776159,
+      "end_ts": 1765983670.776159
+    }
+  ],
+  "summary": "Executed: Return result",
+  "errors": [
+    {
+      "step_index": 1,
+      "step": "Fetch https://timesofindia.indiatimes.com/india",
+      "error": "'MemoryTool' object has no attribute 'conn'",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 31, in execute\n    self.memory.store({\"type\": \"html\", \"data\": html})\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\memory_tool.py\", line 64, in store\n    self.conn.commit()\n    ^^^^^^^^^\nAttributeError: 'MemoryTool' object has no attribute 'conn'\n"
+    },
+    {
+      "step_index": 2,
+      "step": "Extract headlines",
+      "error": "'MemoryTool' object has no attribute 'conn'",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 45, in execute\n    self.memory.store({\"type\": \"headlines\", \"data\": headlines})\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\memory_tool.py\", line 64, in store\n    self.conn.commit()\n    ^^^^^^^^^\nAttributeError: 'MemoryTool' object has no attribute 'conn'\n"
+    },
+    {
+      "step_index": 3,
+      "step": "Summarize headlines into two sentences",
+      "error": "sequence item 0: expected str instance, dict found",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 76, in execute\n    text = \"\\n\".join(item[\"data\"])\n           ^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: sequence item 0: expected str instance, dict found\n"
+    }
+  ]
+}

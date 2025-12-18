@@ -1,0 +1,11 @@
+{
+  "url": "https://news.ycombinator.com",
+  "task": "Extract top headlines and summarize",
+  "steps": [
+    "Fetch https://news.ycombinator.com",
+    "Parse HTML content of the fetched page",
+    "Extract top headlines from the parsed HTML",
+    "Summarize the extracted headlines",
+    "Return the summarized headlines"
+  ]
+}

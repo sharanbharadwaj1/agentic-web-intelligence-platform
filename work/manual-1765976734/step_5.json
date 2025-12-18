@@ -1,0 +1,6 @@
+{
+  "step": "Summarize each of the top 10 headlines into two sentences",
+  "result": "[Groq Error] Error code: 400 - {'error': {'message': 'Please reduce the length of the messages or completion.', 'type': 'invalid_request_error', 'param': 'messages'}}",
+  "start_ts": 1765976764.7850852,
+  "end_ts": 1765976765.3277142
+}

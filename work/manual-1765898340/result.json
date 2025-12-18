@@ -1,0 +1,115 @@
+{
+  "task_id": "manual-1765898340",
+  "status": "completed_with_errors",
+  "url": "https://timesofindia.indiatimes.com/india",
+  "task": "Extract top 10 headlines and give a two-sentence summary.",
+  "steps": [
+    "Fetch https://timesofindia.indiatimes.com/india",
+    "Parse HTML content from the fetched URL",
+    "Extract all headlines from the parsed HTML content",
+    "Store extracted headlines in a list",
+    "Extract article content for the top 10 headlines",
+    "Store extracted article content in a list",
+    "Summarize each article content to two sentences",
+    "Store summarized article content in a list",
+    "Return the list of top 10 headlines and their summaries"
+  ],
+  "outputs": [
+    {
+      "step_index": 1,
+      "step": "Fetch https://timesofindia.indiatimes.com/india",
+      "exec_step": "Fetch https://timesofindia.indiatimes.com/india",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765898341.0498922,
+      "end_ts": 1765898342.1155748
+    },
+    {
+      "step_index": 2,
+      "step": "Parse HTML content from the fetched URL",
+      "exec_step": "Parse HTML content from the fetched URL",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765898342.1155748,
+      "end_ts": 1765898342.1155748
+    },
+    {
+      "step_index": 3,
+      "step": "Extract all headlines from the parsed HTML content",
+      "exec_step": "Extract all headlines from the parsed HTML content",
+      "result": "Executed: Extract all headlines from the parsed HTML content",
+      "valid": true,
+      "start_ts": 1765898342.1155748,
+      "end_ts": 1765898342.1155748
+    },
+    {
+      "step_index": 4,
+      "step": "Store extracted headlines in a list",
+      "exec_step": "Store extracted headlines in a list",
+      "result": "Stored in memory",
+      "valid": true,
+      "start_ts": 1765898342.1155748,
+      "end_ts": 1765898342.430854
+    },
+    {
+      "step_index": 5,
+      "step": "Extract article content for the top 10 headlines",
+      "exec_step": "Extract article content for the top 10 headlines",
+      "result": "Executed: Extract article content for the top 10 headlines",
+      "valid": true,
+      "start_ts": 1765898342.430854,
+      "end_ts": 1765898342.430854
+    },
+    {
+      "step_index": 6,
+      "step": "Store extracted article content in a list",
+      "exec_step": "Store extracted article content in a list",
+      "result": "Stored in memory",
+      "valid": true,
+      "start_ts": 1765898342.4365091,
+      "end_ts": 1765898342.6249177
+    },
+    {
+      "step_index": 7,
+      "step": "Summarize each article content to two sentences",
+      "exec_step": "Summarize each article content to two sentences",
+      "result": "I couldn't find any article provided. To assist you in having your article content summarised and key points extracted, please copy and paste the text of the article into this chat. I'll then be more than happy to compile a concise summary and key points in a list for memory storage.",
+      "valid": true,
+      "start_ts": 1765898342.6406522,
+      "end_ts": 1765898342.9927623
+    },
+    {
+      "step_index": 8,
+      "step": "Store summarized article content in a list",
+      "exec_step": "Store summarized article content in a list",
+      "result": "It seems you haven't provided the article content. To summarize and extract key points, please provide the article. I'll be happy to store and present them in a list for you.",
+      "valid": true,
+      "start_ts": 1765898342.9927623,
+      "end_ts": 1765898343.1927078
+    },
+    {
+      "step_index": 9,
+      "step": "Return the list of top 10 headlines and their summaries",
+      "exec_step": "Return the list of top 10 headlines and their summaries",
+      "result": "Executed: Return the list of top 10 headlines and their summaries",
+      "valid": true,
+      "start_ts": 1765898343.1927078,
+      "end_ts": 1765898343.1927078
+    }
+  ],
+  "summary": "Executed: Extract all headlines from the parsed HTML content\nStored in memory\nExecuted: Extract article content for the top 10 headlines\nStored in memory\nI couldn't find any article provided. To assist you in having your article content summarised and key points extracted, please copy and paste the text of the article into this chat. I'll then be more than happy to compile a concise summary and key points in a list for memory storage.\nIt seems you haven't provided the article content. To summarize and extract key points, please provide the article. I'll be happy to store and present them in a list for you.\nExecuted: Return the list of top 10 headlines and their summaries",
+  "errors": [
+    {
+      "step_index": 1,
+      "step": "Fetch https://timesofindia.indiatimes.com/india",
+      "error": "'SeleniumTool' object has no attribute 'extract'",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 23, in execute\n    data = self.router.fetch(url)\n           ^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\scraping_strategy.py\", line 34, in fetch\n    return self.selenium.extract(url)\n           ^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'SeleniumTool' object has no attribute 'extract'\n"
+    },
+    {
+      "step_index": 2,
+      "step": "Parse HTML content from the fetched URL",
+      "error": "Invalid URL 'URL': No scheme supplied. Perhaps you meant https://URL?",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 23, in execute\n    data = self.router.fetch(url)\n           ^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\scraping_strategy.py\", line 28, in fetch\n    html = self.static.fetch_raw(url)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\web_scraper.py\", line 54, in fetch_raw\n    return requests.get(url, headers=headers, timeout=10).text\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\requests\\api.py\", line 73, in get\n    return request(\"get\", url, params=params, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\requests\\api.py\", line 59, in request\n    return session.request(method=method, url=url, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\requests\\sessions.py\", line 575, in request\n    prep = self.prepare_request(req)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\requests\\sessions.py\", line 484, in prepare_request\n    p.prepare(\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\requests\\models.py\", line 367, in prepare\n    self.prepare_url(url, params)\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\requests\\models.py\", line 438, in prepare_url\n    raise MissingSchema(\nrequests.exceptions.MissingSchema: Invalid URL 'URL': No scheme supplied. Perhaps you meant https://URL?\n"
+    }
+  ]
+}

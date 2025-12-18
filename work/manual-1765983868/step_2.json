@@ -1,0 +1,47 @@
+{
+  "step": "Extract headlines",
+  "result": [
+    {
+      "title": "Trending Topics",
+      "url": null
+    },
+    {
+      "title": "Popular India Stories",
+      "url": "https://timesofindia.indiatimes.com/india"
+    },
+    {
+      "title": "More India News",
+      "url": "https://timesofindia.indiatimes.com/india"
+    },
+    {
+      "title": "Leicester Diwali Celebrations",
+      "url": "/topic/leicester-diwali-celebrations?utm_source=search"
+    },
+    {
+      "title": "CBSE Class 10 English Exam",
+      "url": "/topic/cbse-class-10-english-exam?utm_source=search"
+    },
+    {
+      "title": "Canada Work Permit Rule",
+      "url": "/topic/canada-work-permit-rule?utm_source=search"
+    },
+    {
+      "title": "India/Dec 17, 2025PM Modi arrives in Muscat: Received by Oman deputy PM at airpost; meets Indian diaspora",
+      "url": "https://timesofindia.indiatimes.com/india/pm-modi-arrives-in-muscat-received-by-oman-deputy-pm-at-airpost-meets-indian-diaspora/articleshow/126040635.cms"
+    },
+    {
+      "title": "India/Dec 17, 2025Goa nightclub fire: Luthra brothers sent to 5-day police custody; probe into tragedy widens",
+      "url": "https://timesofindia.indiatimes.com/india/goa-nightclub-fire-luthra-brothers-sent-to-5-day-police-custody-probe-into-tragedy-widens/articleshow/126039596.cms"
+    },
+    {
+      "title": "India/Dec 17, 2025Navy inducts INAS 335 'Ospreys': Helicopter to boost maritime capabilities - why it matters",
+      "url": "https://timesofindia.indiatimes.com/india/navy-inducts-inas-335-ospreys-helicopter-to-boost-maritime-capabilities-why-it-matters/articleshow/126038331.cms"
+    },
+    {
+      "title": "IPL 2026 Most Expensive Players",
+      "url": "https://timesofindia.indiatimes.com/sports/cricket/ipl/top-stories/ipl-auction-2026s-most-expensive-buys-from-cameron-green-to-prashant-veer/articleshow/126005920.cms"
+    }
+  ],
+  "start_ts": 1765983925.1763403,
+  "end_ts": 1765983925.2396398
+}

@@ -1,0 +1,77 @@
+{
+  "task_id": "manual-1765982597",
+  "status": "completed_with_errors",
+  "url": "https://timesofindia.indiatimes.com/india",
+  "task": "Extract top 10 headlines and give a two-sentence summary.",
+  "steps": [
+    "Fetch https://timesofindia.indiatimes.com/india",
+    "Extract headlines",
+    "Summarize headlines into two sentences",
+    "Return result"
+  ],
+  "outputs": [
+    {
+      "step_index": 1,
+      "step": "Fetch https://timesofindia.indiatimes.com/india",
+      "exec_step": "Fetch https://timesofindia.indiatimes.com/india",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765982598.642441,
+      "end_ts": 1765982646.7243876
+    },
+    {
+      "step_index": 2,
+      "step": "Extract headlines",
+      "exec_step": "Extract headlines",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765982646.7243876,
+      "end_ts": 1765982646.7243876
+    },
+    {
+      "step_index": 3,
+      "step": "Summarize headlines into two sentences",
+      "exec_step": "Summarize headlines into two sentences",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765982646.7243876,
+      "end_ts": 1765982646.7243876
+    },
+    {
+      "step_index": 4,
+      "step": "Return result",
+      "exec_step": "Return result",
+      "result": "Executed: Return result",
+      "valid": false,
+      "start_ts": 1765982646.7243876,
+      "end_ts": 1765982646.7243876
+    }
+  ],
+  "summary": "Executed: Return result",
+  "errors": [
+    {
+      "step_index": 1,
+      "step": "Fetch https://timesofindia.indiatimes.com/india",
+      "error": "cannot access local variable 'html' where it is not associated with a value",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 31, in execute\n    self.memory.store({\"type\": \"html\", \"data\": html})\n                                               ^^^^\nUnboundLocalError: cannot access local variable 'html' where it is not associated with a value\n"
+    },
+    {
+      "step_index": 2,
+      "step": "Extract headlines",
+      "error": "list indices must be integers or slices, not str",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 39, in execute\n    if item[\"type\"] != \"html\":\n       ~~~~^^^^^^^^\nTypeError: list indices must be integers or slices, not str\n"
+    },
+    {
+      "step_index": 3,
+      "step": "Summarize headlines into two sentences",
+      "error": "list indices must be integers or slices, not str",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 75, in execute\n    if item[\"type\"] == \"headlines\":\n       ~~~~^^^^^^^^\nTypeError: list indices must be integers or slices, not str\n"
+    },
+    {
+      "step_index": 4,
+      "step": "Return result",
+      "reason": "critic_rejected",
+      "result": "Executed: Return result"
+    }
+  ]
+}

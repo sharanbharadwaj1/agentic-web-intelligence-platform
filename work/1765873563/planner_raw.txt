@@ -1,0 +1,10 @@
+{
+  "url": "https://techcrunch.com",
+  "task": "Extract top headlines and summarize",
+  "steps": [
+    "Fetch https://techcrunch.com",
+    "Parse HTML content of https://techcrunch.com",
+    "Extract top headlines from parsed HTML content",
+    "Summarize extracted top headlines"
+  ]
+}

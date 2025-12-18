@@ -1,0 +1,77 @@
+{
+  "task_id": "manual-1765983239",
+  "status": "completed_with_errors",
+  "url": "https://timesofindia.indiatimes.com/india",
+  "task": "Extract top 10 headlines and give a two-sentence summary.",
+  "steps": [
+    "Fetch https://timesofindia.indiatimes.com/india",
+    "Extract headlines",
+    "Summarize headlines into two sentences",
+    "Return result"
+  ],
+  "outputs": [
+    {
+      "step_index": 1,
+      "step": "Fetch https://timesofindia.indiatimes.com/india",
+      "exec_step": "Fetch https://timesofindia.indiatimes.com/india",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765983240.10085,
+      "end_ts": 1765983363.0776234
+    },
+    {
+      "step_index": 2,
+      "step": "Extract headlines",
+      "exec_step": "Extract headlines",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765983364.3160622,
+      "end_ts": 1765983364.3160622
+    },
+    {
+      "step_index": 3,
+      "step": "Summarize headlines into two sentences",
+      "exec_step": "Summarize headlines into two sentences",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765983364.3160622,
+      "end_ts": 1765983364.3160622
+    },
+    {
+      "step_index": 4,
+      "step": "Return result",
+      "exec_step": "Return result",
+      "result": "Executed: Return result",
+      "valid": false,
+      "start_ts": 1765983364.3170419,
+      "end_ts": 1765983364.3170419
+    }
+  ],
+  "summary": "Executed: Return result",
+  "errors": [
+    {
+      "step_index": 1,
+      "step": "Fetch https://timesofindia.indiatimes.com/india",
+      "error": "HTTPConnectionPool(host='localhost', port=52256): Read timed out. (read timeout=120)",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\urllib3\\connectionpool.py\", line 534, in _make_request\n    response = conn.getresponse()\n               ^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\urllib3\\connection.py\", line 571, in getresponse\n    httplib_response = super().getresponse()\n                       ^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Dell\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\http\\client.py\", line 1395, in getresponse\n    response.begin()\n  File \"C:\\Users\\Dell\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\http\\client.py\", line 325, in begin\n    version, status, reason = self._read_status()\n                              ^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Dell\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\http\\client.py\", line 286, in _read_status\n    line = str(self.fp.readline(_MAXLINE + 1), \"iso-8859-1\")\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Dell\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\socket.py\", line 706, in readinto\n    return self._sock.recv_into(b)\n           ^^^^^^^^^^^^^^^^^^^^^^^\nTimeoutError: timed out\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 29, in execute\n    html = self.router.fetch(url)\n           ^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\scraping_strategy.py\", line 36, in fetch\n    html = self.selenium.fetch(url)\n           ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\selenium_tool.py\", line 30, in fetch\n    driver.get(url)\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\", line 452, in get\n    self.execute(Command.GET, {\"url\": url})\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\", line 429, in execute\n    response = cast(RemoteConnection, self.command_executor).execute(driver_command, params)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\selenium\\webdriver\\remote\\remote_connection.py\", line 405, in execute\n    return self._request(command_info[0], url, body=data)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\selenium\\webdriver\\remote\\remote_connection.py\", line 429, in _request\n    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\urllib3\\_request_methods.py\", line 143, in request\n    return self.request_encode_body(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\urllib3\\_request_methods.py\", line 278, in request_encode_body\n    return self.urlopen(method, url, **extra_kw)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\urllib3\\poolmanager.py\", line 457, in urlopen\n    response = conn.urlopen(method, u.request_uri, **kw)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\urllib3\\connectionpool.py\", line 841, in urlopen\n    retries = retries.increment(\n              ^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\urllib3\\util\\retry.py\", line 474, in increment\n    raise reraise(type(error), error, _stacktrace)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\urllib3\\util\\util.py\", line 39, in reraise\n    raise value\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\urllib3\\connectionpool.py\", line 787, in urlopen\n    response = self._make_request(\n               ^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\urllib3\\connectionpool.py\", line 536, in _make_request\n    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\aiop\\Lib\\site-packages\\urllib3\\connectionpool.py\", line 367, in _raise_timeout\n    raise ReadTimeoutError(\nurllib3.exceptions.ReadTimeoutError: HTTPConnectionPool(host='localhost', port=52256): Read timed out. (read timeout=120)\n"
+    },
+    {
+      "step_index": 2,
+      "step": "Extract headlines",
+      "error": "'method' object is not subscriptable",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 37, in execute\n    item = self.memory.retrieve_latest()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\memory_tool.py\", line 72, in retrieve_latest\n    return self.store[-1]   # not the full list\n           ~~~~~~~~~~^^^^\nTypeError: 'method' object is not subscriptable\n"
+    },
+    {
+      "step_index": 3,
+      "step": "Summarize headlines into two sentences",
+      "error": "'method' object is not subscriptable",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 73, in execute\n    item = self.memory.retrieve_latest()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\memory_tool.py\", line 72, in retrieve_latest\n    return self.store[-1]   # not the full list\n           ~~~~~~~~~~^^^^\nTypeError: 'method' object is not subscriptable\n"
+    },
+    {
+      "step_index": 4,
+      "step": "Return result",
+      "reason": "critic_rejected",
+      "result": "Executed: Return result"
+    }
+  ]
+}

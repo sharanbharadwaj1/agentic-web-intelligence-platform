@@ -1,0 +1,47 @@
+{
+  "step": "Extract headlines",
+  "result": [
+    {
+      "title": "Trending Topics",
+      "url": null
+    },
+    {
+      "title": "Popular India Stories",
+      "url": "https://timesofindia.indiatimes.com/india"
+    },
+    {
+      "title": "More India News",
+      "url": "https://timesofindia.indiatimes.com/india"
+    },
+    {
+      "title": "Leicester Diwali Celebrations",
+      "url": "/topic/leicester-diwali-celebrations?utm_source=search"
+    },
+    {
+      "title": "CBSE Class 10 English Exam",
+      "url": "/topic/cbse-class-10-english-exam?utm_source=search"
+    },
+    {
+      "title": "Canada Work Permit Rule",
+      "url": "/topic/canada-work-permit-rule?utm_source=search"
+    },
+    {
+      "title": "India/Dec 18, 2025G RAM G passed in Lok Sabha: Opposition tears bill in protest — watch",
+      "url": "https://timesofindia.indiatimes.com/india/g-ram-g-passed-in-lok-sabha-opposition-tears-bill-in-protest-watch/articleshow/126056111.cms"
+    },
+    {
+      "title": "India/Dec 18, 2025The grand old party’s crisis: Why Congress partymen are parting ways",
+      "url": "https://timesofindia.indiatimes.com/india/the-grand-old-partys-crisis-why-congress-partymen-are-parting-ways/articleshow/126055269.cms"
+    },
+    {
+      "title": "India/Dec 18, 2025Hate speech now non-bailable offence in Karnataka: Assembly passes Bill; includes 7-year jail term",
+      "url": "https://timesofindia.indiatimes.com/india/hate-speech-now-non-bailable-offence-karnataka-assembly-passes-bill-includes-7-year-jail-term/articleshow/126054859.cms"
+    },
+    {
+      "title": "IPL 2026 Most Expensive Players",
+      "url": "https://timesofindia.indiatimes.com/sports/cricket/ipl/top-stories/ipl-auction-2026s-most-expensive-buys-from-cameron-green-to-prashant-veer/articleshow/126005920.cms"
+    }
+  ],
+  "start_ts": 1766056845.5604517,
+  "end_ts": 1766056845.6697347
+}

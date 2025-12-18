@@ -1,0 +1,71 @@
+{
+  "task_id": "manual-1765983060",
+  "status": "completed_with_errors",
+  "url": "https://timesofindia.indiatimes.com/india",
+  "task": "Extract top 10 headlines and give a two-sentence summary.",
+  "steps": [
+    "Fetch https://timesofindia.indiatimes.com/india",
+    "Extract headlines",
+    "Summarize headlines into two sentences",
+    "Return result"
+  ],
+  "outputs": [
+    {
+      "step_index": 1,
+      "step": "Fetch https://timesofindia.indiatimes.com/india",
+      "exec_step": "Fetch https://timesofindia.indiatimes.com/india",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765983060.9612513,
+      "end_ts": 1765983106.9933872
+    },
+    {
+      "step_index": 2,
+      "step": "Extract headlines",
+      "exec_step": "Extract headlines",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765983107.1808732,
+      "end_ts": 1765983107.1808732
+    },
+    {
+      "step_index": 3,
+      "step": "Summarize headlines into two sentences",
+      "exec_step": "Summarize headlines into two sentences",
+      "result": null,
+      "valid": false,
+      "start_ts": 1765983107.1808732,
+      "end_ts": 1765983107.1808732
+    },
+    {
+      "step_index": 4,
+      "step": "Return result",
+      "exec_step": "Return result",
+      "result": "Executed: Return result",
+      "valid": true,
+      "start_ts": 1765983107.1808732,
+      "end_ts": 1765983107.1808732
+    }
+  ],
+  "summary": "Executed: Return result",
+  "errors": [
+    {
+      "step_index": 1,
+      "step": "Fetch https://timesofindia.indiatimes.com/india",
+      "error": "Error binding parameter 1: type 'dict' is not supported",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 31, in execute\n    self.memory.store({\"type\": \"html\", \"data\": html})\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\memory_tool.py\", line 63, in store\n    self.cur.execute(\"INSERT INTO memory(text) VALUES(?)\", (summary,))\nsqlite3.ProgrammingError: Error binding parameter 1: type 'dict' is not supported\n"
+    },
+    {
+      "step_index": 2,
+      "step": "Extract headlines",
+      "error": "'method' object is not subscriptable",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 37, in execute\n    item = self.memory.retrieve_latest()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\memory_tool.py\", line 70, in retrieve_latest\n    return self.store[-1]   # not the full list\n           ~~~~~~~~~~^^^^\nTypeError: 'method' object is not subscriptable\n"
+    },
+    {
+      "step_index": 3,
+      "step": "Summarize headlines into two sentences",
+      "error": "'method' object is not subscriptable",
+      "traceback": "Traceback (most recent call last):\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\orchestrator\\workflow_manager.py\", line 103, in run_url_task\n    result = self.executor.execute(step_for_exec)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\agents\\executor.py\", line 73, in execute\n    item = self.memory.retrieve_latest()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"E:\\Projects\\Agent Orchestrator Platform\\aiagentplatform\\tools\\memory_tool.py\", line 70, in retrieve_latest\n    return self.store[-1]   # not the full list\n           ~~~~~~~~~~^^^^\nTypeError: 'method' object is not subscriptable\n"
+    }
+  ]
+}

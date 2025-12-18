@@ -1,0 +1,17 @@
+{
+  "step": "Extract summaries for the top 10 headlines",
+  "result": [
+    "SQLite JSON at Full Index Speed Using Generated Columns",
+    "4 billion if statements (2023)",
+    "Koralm Railway",
+    "From text to token: How tokenization pipelines work",
+    "Fedora: Open-source repository for long-term digital preservation",
+    "The tiniest yet real telescope I've built",
+    "The Tor Project is switching to Rust",
+    "GPT-5.2",
+    "BpfJailer: eBPF Mandatory Access Control [pdf]",
+    "Nokia N900 Necromancy"
+  ],
+  "start_ts": 1765551214.9764,
+  "end_ts": 1765551215.2579525
+}

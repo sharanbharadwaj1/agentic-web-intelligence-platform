@@ -1,0 +1,10 @@
+{
+  "url": "https://timesofindia.indiatimes.com/india",
+  "task": "Extract top 10 headlines and give a two-sentence summary.",
+  "steps": [
+    "Fetch https://timesofindia.indiatimes.com/india",
+    "Extract headlines",
+    "Summarize headlines into two sentences",
+    "Return result"
+  ]
+}

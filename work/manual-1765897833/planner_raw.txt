@@ -1,0 +1,12 @@
+{
+  "url": "https://en.wikipedia.org/wiki/Abiogenesis",
+  "task": "Extract top 10 headlines and give a two-sentence summary.",
+  "steps": [
+    "Fetch https://en.wikipedia.org/wiki/Abiogenesis",
+    "Parse HTML content from the fetched URL",
+    "Extract top 10 headlines from the parsed content",
+    "Extract text content from the top 10 headlines",
+    "Summarize the extracted text content into two sentences",
+    "Return the summary"
+  ]
+}
