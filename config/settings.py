@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     # Groq settings
-    GROQ_API_KEY: str  = "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"                        
+    GROQ_API_KEY: str  = "..."                        
     GROQ_API_URL: str = "https://api.groq.ai/openai/v1"   # change if Groq gives a different base
     GROQ_MODEL: str = "llama-3.1-8b-instant"
                      
