@@ -1,0 +1,21 @@
+llm:
+  provider: groq
+  fast_model: llama-3.1-8b-instant
+  strong_model: llama-3.3-70b-versatile
+  timeout_seconds: 30
+
+scraping:
+  static_timeout: 10
+  selenium_timeout: 25
+  block_markers:
+    - access denied
+    - forbidden
+    - captcha
+    - cloudflare
+    - akamai
+    - verify you are human
+    - bot detection
+
+planner:
+  max_steps: 12
+  fallback_enabled: true
