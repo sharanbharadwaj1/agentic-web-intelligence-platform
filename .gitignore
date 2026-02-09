@@ -1,0 +1,35 @@
+# logs / runtime artifacts
+work/
+logs/
+runs/
+
+# python
+__pycache__/
+*.pyc
+
+# virtualenv
+.aiop2/
+venv/
+
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual env
+venv/
+aiop/
+.env
+
+# Databases / state
+memory/sqlite.db
+memory/*.db
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
