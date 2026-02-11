@@ -24,7 +24,7 @@ from llm.groq_client import GroqClient  # or whatever LLM client you use
 WORK_ROOT = Path("work")
 WORK_ROOT.mkdir(exist_ok=True)
 
-MAX_STEPS =8
+MAX_STEPS = 6
 
 
 def _safe_url(url: str) -> bool:
@@ -160,6 +160,20 @@ class WorkflowManager:
                 critic_feedback = f"critic_failed:{e}"
                 state.errors.append(str(critic_feedback))
 
+            # record last action
+            state.last_action = action
+
+            # increment attempts
+            state.attempts[action] = state.attempts.get(action, 0) + 1
+
+            # record critic feedback
+            state.last_critic_feedback = critic_feedback
+
+            # 🚨 Invalidate bad extraction
+            if critic_feedback == "STATIC_EXTRACTION_LOW_QUALITY":
+                state.headlines = None
+
+
             trace_entry.update({
                 "executed_action": action,
                 "exec_error": str(exec_error) if exec_error else None,
@@ -184,14 +198,9 @@ class WorkflowManager:
             # if not critic_ok:
             #     continue
 
-            if not critic_ok:
-            # 🔴 critic rejected the result — invalidate relevant state
-                if critic_feedback == "STATIC_EXTRACTION_LOW_QUALITY":
-                    state.headlines = None
-                    state.extract_strategy = None
-
-            # let planner react to corrected state
-            continue
+        
+        if action == "fetch_selenium":
+            state.attempts["extract_rule"] = 0
 
 
         # Ensure we have a summary (either from summarize tool or derive)
