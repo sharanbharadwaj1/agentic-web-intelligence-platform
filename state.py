@@ -16,6 +16,8 @@ class AgentState:
 
     last_action: Optional[str] = None
 
+    last_action: Optional[str] = None
+    last_critic_feedback: Optional[str] = None
     # ✅ NEW: implicit execution history
     attempts: Dict[str, int] = field(default_factory=lambda: {
         "fetch_static": 0,
