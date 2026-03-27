@@ -2,18 +2,15 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
-
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 class FetchSeleniumTool:
-    # def run(self, state):
-    #     driver = webdriver.Chrome()
-    #     driver.get(state.url)
-    #     state.html = driver.page_source
-    #     driver.quit()
-        # state.scrape_strategy = "selenium"
+   
 
 
 
-    def run(self, state) :
+    def fetch_selenium(self, state) :
         options = Options()
         options.add_argument("--headless")
         options.add_argument("--disable-gpu")
@@ -29,7 +26,7 @@ class FetchSeleniumTool:
             html_lower = state.html.lower()
             for x in ["access denied", "bot protection", "captcha", "cloudflare", "verify you are human"]:
                 if x in html_lower:
-                    print(f"Bot protection detected due to presence of '{x}' in HTML.")
+                    logger.info(f"Bot protection detected due to presence of '{x}' in HTML.")
                     raise ConnectionRefusedError("Bot protection detected!!")
         #     if (
         #     "access denied" in html_lower
@@ -44,4 +41,15 @@ class FetchSeleniumTool:
             raise ConnectionRefusedError("Bot protection detected!!")
                 
         state.scrape_strategy = "selenium"
+
+    def run(self, state):
+        html = self.fetch_selenium(state)
+
+        state.html = html
+        state.scrape_strategy = "static"
+
+        return {
+            "html": html,
+            "scrape_strategy": "selenium"
+        }
 

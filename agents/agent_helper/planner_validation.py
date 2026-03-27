@@ -4,7 +4,8 @@ def validate_planner_output(parsed: dict) -> bool:
         and parsed.get("action") in {
             "fetch_static",
             "fetch_selenium",
-            "extract_rule",
+    "extract_rule",
+    "extract_llm",
             "summarize",
             "finish",
         }

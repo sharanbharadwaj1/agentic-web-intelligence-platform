@@ -1,5 +1,6 @@
 # orchestrator.py
 import json
+import re
 import time
 from pathlib import Path
 from typing import Dict, Any
@@ -20,6 +21,10 @@ from tools.fetch_static import FetchStaticTool
 from tools.summarizer import SummarizeTool
 from state import AgentState
 from llm.groq_client import GroqClient  # or whatever LLM client you use
+
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 WORK_ROOT = Path("work")
 WORK_ROOT.mkdir(exist_ok=True)
@@ -96,6 +101,7 @@ class WorkflowManager:
 
             action = decision.get("action") 
             reason = decision.get("reason", "")
+            logger.info(f"Planner decision at step {step_counter}: action={action}, reason={reason}")
 
             # finish condition
             if action == "finish":
@@ -121,7 +127,7 @@ class WorkflowManager:
             except Exception as e:
                 # exec_error = e
                 # state.errors.append(str(f"executor_failed[{action}]:{e}"))
-                
+                logger.error(f"Execution failed for action {action}: {e}")
                 exec_error = e
                 if hasattr(state, "add_error"):
                     state.add_error(
@@ -188,7 +194,7 @@ class WorkflowManager:
             # try:
             #     with open(run_dir / f"step_{step_counter}.json", "w", encoding="utf-8") as f:
             #         json.dump(trace_entry, f, ensure_ascii=False, indent=2)
-            #     print(f"Cleanup old runs, keeping only recent ones...")
+            #     logger.info(f"Cleanup old runs, keeping only recent ones...")
             #     # cleanup_dirs_keep_recent("./work", keep_last=5, dry_run=True)
 
             # except Exception:
@@ -207,15 +213,17 @@ class WorkflowManager:
         if not getattr(state, "summary", None):
             try:
                 summarize_tool = SummarizeTool()
-                # very simple: try to summarize headlines if present
-                text_blob = ""
                 if getattr(state, "headlines", None):
-                    text_blob = "\n".join(map(str, state.headlines))
-                elif getattr(state, "html", None):
-                    text_blob = state.html[:2000]
-                if text_blob:
                     state.summary = summarize_tool.run(state)
+                elif getattr(state, "html", None):
+                    html_text = re.sub(r"<[^>]+>", " ", str(state.html))
+                    html_text = re.sub(r"\s+", " ", html_text).strip()
+                    state.summary = (
+                        "HTML fallback summary: "
+                        + (html_text[:300] if html_text else "No readable text found in HTML.")
+                    )
                 else:
+                    print("No content available for summarization.")
                     state.summary = "No content to summarize."
             except Exception as e:
                 state.summary = f"[error summarizing]: {e}"

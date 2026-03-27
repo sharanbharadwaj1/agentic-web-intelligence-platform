@@ -4,6 +4,9 @@ from groq import Groq
 from tools.utils.headline_extraction_schema import HEADLINE_EXTRACTION_SCHEMA
 from llm.config_loader import Config
 from llm.settings import settings
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 import dotenv
 dotenv.load_dotenv()
 class GroqClient:

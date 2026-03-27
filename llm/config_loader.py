@@ -1,9 +1,11 @@
 import yaml
 import os
 
-
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 current_directory = os.getcwd()
-print(f"Current working directory: {current_directory}")
+# logger.info(f"Current working directory: {current_directory}")
 
 class Config:
     _cfg = None
@@ -12,7 +14,7 @@ class Config:
     @classmethod
     
     def load(cls, path="E:/Projects/Agent Orchestrator Platform/aiagentplatform2/llm/config.yaml"):
-        print(f"Loading config from {path}")
+        logger.info(f"Loading config from {path}")
         if cls._cfg is None:
             with open(path, "r") as f:
                 cls._cfg = yaml.safe_load(f)

@@ -1,24 +1,24 @@
-# agents/planner.py
-class PlannerAgent:
-    def decide(self, state):
+# # agents/planner.py
+# class PlannerAgent:
+#     def decide(self, state):
         
-        # Need HTML
-        if state.html is None:
-            return {"action": "fetch_static", "reason": "Try static scrape first"}
+#         # Need HTML
+#         if state.html is None:
+#             return {"action": "fetch_static", "reason": "Try static scrape first"}
 
-        # If static failed badly, try selenium
-        if state.html and "Access Denied" in state.html:
-            return {"action": "fetch_selenium", "reason": "Static blocked"}
+#         # If static failed badly, try selenium
+#         if state.html and "Access Denied" in state.html:
+#             return {"action": "fetch_selenium", "reason": "Static blocked"}
 
-        # Need headlines
-        if state.headlines is None:
-            return {"action": "extract_rule", "reason": "Try rule-based extraction"}
+#         # Need headlines
+#         if state.headlines is None:
+#             return {"action": "extract_rule", "reason": "Try rule-based extraction"}
 
-        # Need summary
-        if state.summary is None:
-            return {"action": "summarize", "reason": "Generate summary"}
+#         # Need summary
+#         if state.summary is None:
+#             return {"action": "summarize", "reason": "Generate summary"}
 
-        return {"action": "finish", "reason": "Goal reached"}
+#         return {"action": "finish", "reason": "Goal reached"}
 # agents/planner.py
 
 # agents/planner.py
@@ -31,7 +31,9 @@ from agents.agent_helper.planner_prompt import planner_agent_prompt
 from agents.agent_helper.planner_schema import planner_agent_schema
 from agents.agent_helper.utils import looks_blocked
 from tools.utils.fetch_helper import looks_js_rendered
-
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class PlannerAgent:
     """
@@ -64,7 +66,7 @@ class PlannerAgent:
         Deterministic backup: same logic as your original state-based planner.
         """
 
-        print("PlannerAgent FALLBACK_DECIDE invoked.")
+        logger.info("PlannerAgent FALLBACK_DECIDE invoked.")
         if state.scrape_strategy == "static" and looks_js_rendered(state.html):
             return {"action": "fetch_selenium", "reason": "Static page appears JS-rendered"}
         
@@ -121,25 +123,25 @@ class PlannerAgent:
         """
         # If we don’t even have url/task, hard fallback
         # if not getattr(state, "url", None) or not getattr(state, "task", None):
-        #     print("PlannerAgent: Missing url or task in state, invoking fallback.")
+        #     logger.info("PlannerAgent: Missing url or task in state, invoking fallback.")
         #     return self._fallback_decide(state)
 
-        print(
+        logger.info(
                 f"[DEBUG] last_action={state.last_action} | "
                 f"last_critic={state.last_critic_feedback} | "
                 f"attempts={state.attempts}"
             )
 
         if not state.url or not state.goal:
-            print("PlannerAgent: Missing url or task in state, invoking fallback.")
+            logger.info("PlannerAgent: Missing url or task in state, invoking fallback.")
             return self._fallback_decide(state)
         
-        print(f"[Planner.decide] entered | url={state.url} | goal={state.goal}")
+        logger.info(f"[Planner.decide] entered | url={state.url} | goal={state.goal}")
 
 
 
         # Prepare a serialized view of state for the LLM (keep it compact)
-        print(f"Current state before decision: html={'present' if state.html else 'missing'}, headlines={'present' if state.headlines else 'missing'}, summary={'present' if state.summary else 'missing'}")
+        logger.info(f"Current state before decision: html={'present' if state.html else 'missing'}, headlines={'present' if state.headlines else 'missing'}, summary={'present' if state.summary else 'missing'}")
         html_status = (
             "missing"
             if state.html is None else
@@ -180,13 +182,13 @@ class PlannerAgent:
                 and getattr(state, "last_critic_feedback", None) == "STATIC_EXTRACTION_LOW_QUALITY"
                 and state.attempts.get("extract_rule", 0) >= 1
             ):  
-                print("[last]PlannerAgent: Detected repeated low-quality extraction, escalating to Selenium fetch.")
+                logger.info("[last]PlannerAgent: Detected repeated low-quality extraction, escalating to Selenium fetch.")
                 return {
                     "action": "fetch_selenium",
                     "reason": "Rule-based extraction low quality; switching to JS-rendered fetch",
                 }
         except Exception as e:
-            print(f"Error in pre-LLM escalation logic: {e}")
+            logger.info(f"Error in pre-LLM escalation logic: {e}")
 
         # Structured prompt: ask for the next action + reason
         try:
@@ -217,9 +219,9 @@ class PlannerAgent:
 
             state_desc_json=json.dumps(state_description, indent=2)
             prompt = planner_agent_prompt.format(state_desc=state_desc_json)
-            # print(f"Prepared prompt for PlannerAgent:\n{prompt}")
+            # logger.info(f"Prepared prompt for PlannerAgent:\n{prompt}")
         except Exception as e:
-            print(f"Error preparing prompt: {e}")
+            logger.info(f"Error preparing prompt: {e}")
             raise RuntimeError(f"Failed to prepare prompt for PlannerAgent :{e}") from e
 
 
@@ -227,14 +229,14 @@ class PlannerAgent:
 
         # Try structured LLM call
         try:
-            print("PlannerAgent sending prompt to LLM...")
+            logger.info("PlannerAgent sending prompt to LLM...")
             response_text = self.llm.structured(prompt, schema=None)
-            # print(f"Planner LLM response: {response_text}")
+            # logger.info(f"Planner LLM response: {response_text}")
         except Exception as e:
             response_text = f"[Groq Error] {e}"
 
         if state.scrape_strategy == "static" and looks_js_rendered(state.html):
-            print("Detected JS-rendered page in fallback logic.")
+            logger.info("Detected JS-rendered page in fallback logic.")
             return {"action": "fetch_selenium", "reason": "Static page appears JS-rendered"}
 
         # If LLM failed badly, fallback to deterministic logic
@@ -259,7 +261,8 @@ class PlannerAgent:
         if action not in {
             "fetch_static",
             "fetch_selenium",
-            "extract_rule",
+                "extract_rule",
+                "extract_llm",
             "summarize",
             "finish",
         }:
@@ -288,7 +291,7 @@ class PlannerAgent:
         #         "summarize",
         #         "finish",
         #     }:
-        #         print("Step INVALID - Switching to Fallback steps")
+        #         logger.info("Step INVALID - Switching to Fallback steps")
         #         # invalid or unsafe action -> fallback
         #         return self._fallback_decide(state)
 
@@ -296,7 +299,7 @@ class PlannerAgent:
 
         # except Exception:
         #     # parsing failed -> fallback
-        #     print("Step INVALID - Switching to Fallback steps")
+        #     logger.info("Step INVALID - Switching to Fallback steps")
 
         #     return self._fallback_decide(state)
         # #
