@@ -1,0 +1,29 @@
+[33mcommit 17b077f2cd8a72a0ebe75df1858ba0465b9a1ce8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mcodex/aiops-v2.1[m[33m, [m[1;32maiops2-fresh-refactored-staeful[m[33m)[m
+Author: Sharan Bharadwaj <sharanbharadwaj1@gmail.com>
+Date:   Fri Mar 27 20:37:01 2026 +0530
+
+    extraction fix
+
+ TO DO.txt                                 | 34 [32m+++++++++++++++[m
+ agents/agent_helper/planner_validation.py |  3 [32m+[m[31m-[m
+ agents/planner.py                         | 71 [32m++++++++++++++++[m[31m---------------[m
+ aiagentplatform2 mcp.code-workspace       |  7 [32m+++[m
+ llm/config_loader.py                      |  8 [32m++[m[31m--[m
+ llm/groq_client.py                        |  3 [32m++[m
+ llm/settings.py                           |  6 [32m++[m[31m-[m
+ main.py                                   |  9 [32m+++[m[31m-[m
+ mcp architecture.ini                      | 18 [32m++++++++[m
+ mcp_runtime/__init__.py                   |  0
+ mcp_runtime/adapter.py                    | 66 [32m++++++++++++++++++++++++++++[m
+ mcp_runtime/app.py                        | 60 [32m++++++++++++++++++++++++++[m
+ mcp_runtime/test_client.py                | 57 [32m+++++++++++++++++++++++++[m
+ orchestrator/manager.py                   | 26 [32m+++++++[m[31m----[m
+ orchestrator/orchestrator.py              | 49 [31m---------------------[m
+ state.py                                  | 32 [32m++++++++++++++[m
+ switch guide.txt                          | 64 [32m++++++++++++++++++++++++++++[m
+ tools/extract_llm.py                      | 18 [32m+++++++[m[31m-[m
+ tools/extract_rule.py                     | 23 [32m+++++++++[m[31m-[m
+ tools/fetch_selenium.py                   | 26 [32m+++++++[m[31m----[m
+ tools/fetch_static.py                     | 26 [32m++++++++[m[31m---[m
+ tools/summarizer.py                       | 20 [32m++++++++[m[31m-[m
+ 22 files changed, 509 insertions(+), 117 deletions(-)
