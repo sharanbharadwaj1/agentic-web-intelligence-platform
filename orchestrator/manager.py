@@ -190,19 +190,7 @@ class WorkflowManager:
             })
             state.steps_trace.append(str(trace_entry))
 
-            # persist per-step trace
-            # try:
-            #     with open(run_dir / f"step_{step_counter}.json", "w", encoding="utf-8") as f:
-            #         json.dump(trace_entry, f, ensure_ascii=False, indent=2)
-            #     logger.info(f"Cleanup old runs, keeping only recent ones...")
-            #     # cleanup_dirs_keep_recent("./work", keep_last=5, dry_run=True)
-
-            # except Exception:
-            #     pass
-
-            # # if critic is unhappy, loop and let planner react to updated state
-            # if not critic_ok:
-            #     continue
+            
 
         
         if action == "fetch_selenium":
@@ -229,8 +217,6 @@ class WorkflowManager:
                 state.summary = f"[error summarizing]: {e}"
                 state.errors.append(str(e))
 
-        # errors_list = list(getattr(state, "errors", []))
-        # status = "completed" if not errors_list else "completed_with_errors"
 
         errors_list = list(getattr(state, "errors", []))
         # 🔧 normalize legacy string errors → dicts
@@ -251,34 +237,7 @@ class WorkflowManager:
         )
 
 
-        # has_terminal_error = any(
-        #     not err.get("recoverable", True)
-        #     for err in errors_list
-        # )
 
-        # has_terminal_error = any(
-        #     isinstance(err, dict) and not err.get("recoverable", True)
-        #     for err in errors_list
-        # )
-
-
-        # status = (
-        #     "failed"
-        #     if has_terminal_error and not state.summary
-        #     else "completed_with_errors"
-        #     if errors_list
-        #     else "completed"
-        # )
-
-        # has_any_error = len(errors_list) > 0
-
-        # status = (
-        #     "failed"
-        #     if has_terminal_error and not state.summary
-        #     else "completed_with_errors"
-        #     if has_any_error
-        #     else "completed"
-        # )
 
 
 

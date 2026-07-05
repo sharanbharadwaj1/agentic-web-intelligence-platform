@@ -1,27 +1,5 @@
 # # agents/planner.py
-# class PlannerAgent:
-#     def decide(self, state):
-        
-#         # Need HTML
-#         if state.html is None:
-#             return {"action": "fetch_static", "reason": "Try static scrape first"}
 
-#         # If static failed badly, try selenium
-#         if state.html and "Access Denied" in state.html:
-#             return {"action": "fetch_selenium", "reason": "Static blocked"}
-
-#         # Need headlines
-#         if state.headlines is None:
-#             return {"action": "extract_rule", "reason": "Try rule-based extraction"}
-
-#         # Need summary
-#         if state.summary is None:
-#             return {"action": "summarize", "reason": "Generate summary"}
-
-#         return {"action": "finish", "reason": "Goal reached"}
-# agents/planner.py
-
-# agents/planner.py
 from asyncio.log import logger
 import json
 from typing import Optional, Dict, Any
@@ -121,10 +99,7 @@ class PlannerAgent:
                 "reason": "<short natural language justification>",
             }
         """
-        # If we don’t even have url/task, hard fallback
-        # if not getattr(state, "url", None) or not getattr(state, "task", None):
-        #     logger.info("PlannerAgent: Missing url or task in state, invoking fallback.")
-        #     return self._fallback_decide(state)
+
 
         logger.info(
                 f"[DEBUG] last_action={state.last_action} | "
@@ -278,28 +253,4 @@ class PlannerAgent:
             }
 
 
-        # # Parse LLM JSON
-        # try:
-        #     parsed = json.loads(response_text)
-        #     action = parsed.get("action")
-        #     reason = parsed.get("reason", "").strip() or "LLM decision"
-        #     logger.info(f"PlannerAgent decided action: {action} with reason: {reason}")
-        #     if action not in {
-        #         "fetch_static",
-        #         "fetch_selenium",
-        #         "extract_rule",
-        #         "summarize",
-        #         "finish",
-        #     }:
-        #         logger.info("Step INVALID - Switching to Fallback steps")
-        #         # invalid or unsafe action -> fallback
-        #         return self._fallback_decide(state)
 
-        #     return {"action": action, "reason": reason}
-
-        # except Exception:
-        #     # parsing failed -> fallback
-        #     logger.info("Step INVALID - Switching to Fallback steps")
-
-        #     return self._fallback_decide(state)
-        # #

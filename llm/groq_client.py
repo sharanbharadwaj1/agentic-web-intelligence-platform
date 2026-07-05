@@ -38,49 +38,4 @@ class GroqClient:
         return completion.choices[0].message.content
 
 
-    # def structured(self, prompt, schema =HEADLINE_EXTRACTION_SCHEMA):
-    #     completion = self.client.chat.completions.create(
-    #         model=self.model,
-    #         messages=[{"role": "user", "content": prompt}],
-    #         response_format={
-    #             "type": "json_schema",
-    #             "json_schema": schema
-    #         },
-    #         temperature=0
-    #     )
-    #     return completion.choices[0].message.parsed
-
-    # def structured(self, prompt, schema=HEADLINE_EXTRACTION_SCHEMA):
-    #     try:
-    #         messages = []
-    #         if schema:
-    #             messages.append({
-    #                 "role": "system",
-    #                 "content": f"Return ONLY valid JSON matching schema: {schema}"
-    #             })
-    #         messages.append({"role": "user", "content": prompt})
-
-    #         response = self.client.chat.completions.create(
-    #             model=self.model,
-    #             messages=messages,
-    #             temperature=0
-    #         )
-    #         return response.choices[0].message.content
-    #     except Exception as e:
-    #         return f"[Groq Error] {e}"
-
-    # def structured(self, prompt, schema):
-    #     try:
-    #         completion = self.client.chat.completions.create(
-    #             model=self.model,
-    #             messages=[{"role": "user", "content": prompt}],
-    #             response_format={"type": "json_schema", "json_schema": schema},
-    #             timeout=30,
-    #         )
-    #         print(f"GroqClient received completion: {completion}")
-    #     except Exception as e:
-    #         print(f"GroqClient error: {e}")
-            
-
     
-    #     return completion.choices[0].message.content
