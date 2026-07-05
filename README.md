@@ -295,6 +295,94 @@ This keeps the strongest parts of both systems:
 - the main pipeline owns state, planning, fallback, and tool execution
 - the guardrail engine owns LLM reliability, schema validation, retries, escalation, and observability
 
+## Multi-Model Arbitration
+
+The guardrail engine should also provide multi-model arbitration for LLM-dependent steps.
+
+The current guardrail engine already has the foundation for this through:
+
+- `ModelRole.FAST`
+- `ModelRole.STRONG`
+- confidence scoring
+- schema validation
+- semantic validation
+- retry and repair logic
+- escalation policy in `policy.yaml`
+
+The next step is to treat model selection as arbitration, not only fallback. Instead of accepting the first valid model response, the guardrail layer can run multiple model candidates, validate each output, score each result, and choose the best one before returning it to the agentic pipeline.
+
+Recommended arbitration flow:
+
+```text
+LLM task request
+  -> build task-specific prompt
+  -> call FAST model
+  -> validate FAST output
+  -> call STRONG model when required or configured
+  -> validate STRONG output
+  -> compare candidates
+  -> select winning output
+  -> return output + confidence + model_role + arbitration_reason
+```
+
+For cost-sensitive tasks, arbitration can stay conditional:
+
+```text
+Use FAST first.
+If FAST is valid and confidence is high, accept FAST.
+If FAST is invalid, low-confidence, or semantically weak, call STRONG.
+If both return valid outputs, select the higher-confidence candidate.
+```
+
+For high-risk LLM boundaries such as planner decisions, arbitration can be stricter:
+
+```text
+Run FAST and STRONG.
+Validate both against the planner schema.
+Reject actions outside the allowed tool set.
+Prefer the candidate with valid schema, higher confidence, and safer reasoning.
+Fall back to deterministic planning if arbitration fails.
+```
+
+Suggested arbitration result shape:
+
+```json
+{
+  "status": "valid",
+  "winner": {
+    "model_role": "STRONG",
+    "output": {
+      "action": "extract_rule",
+      "reason": "HTML is present but headlines are missing"
+    },
+    "confidence": 0.92
+  },
+  "candidates": [
+    {
+      "model_role": "FAST",
+      "status": "valid",
+      "confidence": 0.74,
+      "failure_type": "none"
+    },
+    {
+      "model_role": "STRONG",
+      "status": "valid",
+      "confidence": 0.92,
+      "failure_type": "none"
+    }
+  ],
+  "arbitration_reason": "STRONG candidate had higher confidence and cleaner schema compliance"
+}
+```
+
+In the main pipeline, this arbitration should be used at the same LLM boundaries:
+
+- `PlannerAgent`: arbitrate the next action before it affects workflow control.
+- `ExtractLLMTool`: arbitrate extracted headline lists before mutating `state.headlines`.
+- `SummarizeTool`: arbitrate summary outputs before setting `state.summary`.
+
+This makes the guardrail engine responsible for both output safety and model choice, while the `WorkflowManager` remains responsible for orchestration.
+
 ## Proposed Guardrail Contracts
 
 The guardrail engine should expose task-specific contracts instead of only a generic summary contract.
@@ -347,8 +435,10 @@ Each contract should have:
 4. Add a headline extraction schema to the guardrail engine.
 5. Replace direct LLM parsing in `ExtractLLMTool` with guardrail-protected extraction.
 6. Add a planner decision schema and route `PlannerAgent` LLM decisions through guardrails.
-7. Keep `CriticAgent` as a pipeline-level validator, not a replacement for guardrails.
-8. Normalize guardrail failures into `state.errors` using the existing recoverable/non-recoverable error format.
+7. Add multi-model arbitration so FAST and STRONG model candidates can be compared before returning LLM output.
+8. Return `model_role`, `confidence`, `failure_type`, and `arbitration_reason` with every guarded LLM result.
+9. Keep `CriticAgent` as a pipeline-level validator, not a replacement for guardrails.
+10. Normalize guardrail failures into `state.errors` using the existing recoverable/non-recoverable error format.
 
 ## Failure Handling Strategy
 
@@ -392,6 +482,7 @@ The target architecture is:
 Agentic pipeline stays stateful and local.
 MCP remains optional for future external tool exposure.
 Guardrails protect every LLM boundary.
+Multi-model arbitration chooses the best valid LLM output.
 Critic validates pipeline-level progress.
 WorkflowManager remains the source of orchestration truth.
 ```
@@ -402,5 +493,4 @@ This gives the project a cleaner separation of responsibilities:
 - WorkflowManager: orchestration and recovery
 - ToolRegistry: local tool execution
 - CriticAgent: pipeline validation
-- LLM Guardrail Engine: safe, validated, observable LLM output
-
+- LLM Guardrail Engine: safe, validated, observable LLM output and model arbitration
