@@ -1,5 +1,6 @@
 # Agent Orchestrator Platform with Guardrail Engine
 
+
 This repository contains an experimental agentic web-processing pipeline. The pipeline takes a URL and a task, plans the next action, executes scraping or extraction tools, validates progress through a critic, and returns a final summarized result.
 
 The project also contains a separate `LLM Guardrail Engine`, which was built as an independent service for schema validation, retries, repair prompts, confidence scoring, escalation, and run observability around LLM calls.
@@ -20,6 +21,43 @@ User payload
   -> CriticAgent
   -> retry, fallback, or finish
   -> final result
+```
+
+## Architecture Diagram
+
+```mermaid
+flowchart LR
+    User["User / API Payload"] --> Manager["WorkflowManager<br/>orchestrator/manager.py"]
+
+    Manager --> Planner["PlannerAgent<br/>agents/planner.py"]
+    Manager --> Executor["ExecutorAgent<br/>agents/executor.py"]
+    Manager --> Critic["CriticAgent<br/>agents/critic.py"]
+
+    Executor --> Registry["ToolRegistry<br/>tools/registry.py"]
+    Registry --> FetchStatic["fetch_static"]
+    Registry --> FetchSelenium["fetch_selenium"]
+    Registry --> ExtractRule["extract_rule"]
+    Registry --> ExtractLLM["extract_llm"]
+    Registry --> Summarize["summarize"]
+
+    Planner --> LLMClient["GroqClient<br/>llm/groq_client.py"]
+    ExtractLLM --> LLMClient
+    Summarize --> LLMClient
+
+    LLMClient -. "recommended integration" .-> Guardrails["LLM Guardrail Engine<br/>validation, repair, confidence,<br/>escalation, arbitration"]
+    Guardrails -. "validated output" .-> LLMClient
+
+    FetchStatic --> State["AgentState<br/>state.py"]
+    FetchSelenium --> State
+    ExtractRule --> State
+    ExtractLLM --> State
+    Summarize --> State
+    Planner --> State
+    Critic --> State
+
+    Manager --> Result["Final Result<br/>status, summary, trace, errors"]
+
+    MCP["MCP Runtime<br/>mcp_runtime/"] -. "attempted optional tool wrapper" .-> Registry
 ```
 
 The input payload is expected to contain:
@@ -93,6 +131,61 @@ Planner decides intent
 Executor performs action
 Critic validates result
 Manager controls loop and recovery
+```
+
+## Workflow Diagram
+
+```mermaid
+flowchart TD
+    Start["Start URL task"] --> ValidateInput{"Valid url and task?"}
+    ValidateInput -->|No| FailedInput["Return failed<br/>missing or invalid input"]
+    ValidateInput -->|Yes| InitState["Create AgentState<br/>goal, url, attempts, errors"]
+
+    InitState --> StepLimit{"Step count <= MAX_STEPS?"}
+    StepLimit -->|No| MaxSteps["Record max_steps_exceeded"]
+    MaxSteps --> BuildResult["Build final result"]
+
+    StepLimit -->|Yes| Plan["PlannerAgent.decide(state)"]
+    Plan --> PlannerFailed{"Planner failed?"}
+    PlannerFailed -->|Yes| RecordPlannerError["Record planner_failed"]
+    RecordPlannerError --> BuildResult
+    PlannerFailed -->|No| Finish{"Action is finish?"}
+    Finish -->|Yes| BuildResult
+
+    Finish -->|No| Execute["ExecutorAgent.execute(action, state)"]
+    Execute --> ExecFailed{"Execution failed?"}
+
+    ExecFailed -->|No| CriticCheck["CriticAgent.validate(state)"]
+    ExecFailed -->|Yes| RecordExecError["Record recoverable execution error"]
+    RecordExecError --> Fallback{"Fallback available?"}
+
+    Fallback -->|extract_rule failed| ExtractLLM["Run extract_llm fallback"]
+    Fallback -->|fetch_static failed| FetchSelenium["Run fetch_selenium fallback"]
+    Fallback -->|No| CriticCheck
+    ExtractLLM --> CriticCheck
+    FetchSelenium --> CriticCheck
+
+    CriticCheck --> CriticOK{"Critic OK?"}
+    CriticOK -->|No| ApplyFeedback["Store critic feedback<br/>invalidate bad state if needed"]
+    CriticOK -->|Yes| UpdateTrace["Update trace, attempts,<br/>last action, feedback"]
+    ApplyFeedback --> UpdateTrace
+
+    UpdateTrace --> StepLimit
+
+    BuildResult --> NeedSummary{"Summary exists?"}
+    NeedSummary -->|Yes| NormalizeErrors["Normalize errors"]
+    NeedSummary -->|No| DeriveSummary["Summarize headlines or HTML<br/>if content exists"]
+    DeriveSummary --> NormalizeErrors
+
+    NormalizeErrors --> Status{"Terminal error<br/>without summary?"}
+    Status -->|Yes| Failed["status = failed"]
+    Status -->|No errors| Completed["status = completed"]
+    Status -->|Recoverable errors| CompletedErrors["status = completed_with_errors"]
+
+    Failed --> Persist["Persist result.json"]
+    Completed --> Persist
+    CompletedErrors --> Persist
+    Persist --> Return["Return response"]
 ```
 
 ## MCP Implementation Attempt
