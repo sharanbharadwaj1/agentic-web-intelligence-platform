@@ -1,4 +1,4 @@
-# Agent Orchestrator Platform
+# Agent Orchestrator Platform with Guardrail Engine
 
 This repository contains an experimental agentic web-processing pipeline. The pipeline takes a URL and a task, plans the next action, executes scraping or extraction tools, validates progress through a critic, and returns a final summarized result.
 
